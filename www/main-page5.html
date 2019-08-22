@@ -1,0 +1,232 @@
+<ons-page id="page5" style="height: 100%">
+  <ons-toolbar>
+    <div class="center">1球目の位置を指定してください</div>
+    <div class="right">
+      <ons-toolbar-button id="net">ネット</ons-toolbar-button>
+      <ons-toolbar-button id="swing">空振り</ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  <svg class="badminton court" id="badminton-tap-court" viewBox="-5000 -9000 10000 10000" width="100%" height="98%">
+        <rect class="serve-area" id="right-singles" x="-2590" y="-6700" width="2590" height="4700" style="display: none" />
+        <rect class="serve-area" id="right-doubles" x="-3050" y="-5900" width="3050" height="3900" style="display: none"/>
+        <rect class="serve-area" id="left-singles" x="0" y="-6700" width="2590" height="4700" style="display: none"/>
+        <rect class="serve-area" id="left-doubles" x="0" y="-5900" width="3050" height="3900" style="display: none"/>
+        <rect class="line" id="badminton-sideline-doubles-left" x="-3050" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-sideline-doubles-right" x="3010" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-backboundaryline-top" x="-3050" y="-6700" width="6100" height="40" />
+        <rect class="line" id="badminton-backboundaryline-bottom" x="-3050" y="6660" width="6100" height="40" />
+        <rect class="line" id="badminton-longserviceline-doubles-top" x="-3050" y="-5940" width="6100" height="40" />
+        <rect class="line" id="badminton-longserviceline-doubles-bottom" x="-3050" y="5900" width="6100" height="40" />
+        <rect class="line" id="badminton-sideline-singles-left" x="-2590" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-sideline-singles-right" x="2550" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-centerline-top" x="-20" y="-6700" width="40" height="4680" />
+        <rect class="line" id="badminton-centerline-top" x="-20" y="1980" width="40" height="4680" />
+        <rect class="line" id="badminton-shortserviceline-top" x="-3050" y="-2020" width="6100" height="40" />
+        <rect class="line" id="badminton-shortserviceline-top" x="-3050" y="1980" width="6100" height="40" />
+        <line class="net" id="badminton-net" x1="-3200" y1="0" x2="3200" y2="0" />
+        <circle class="post" id="badminton-post-left" cx="-3200" cy="0" r="80" />
+        <circle class="post" id="badminton-post-right" cx="3200" cy="0" r="80" />
+      
+  </svg>
+
+  <script>
+
+    function convertPoint(x, y) {
+      var svg = document.querySelector('#badminton-tap-court');
+      var svg_width = svg.clientWidth;
+      var svg_height = svg.clientHeight;          
+      var viewbox_width = 10000;
+      var viewbox_height = 10000;
+      var viewbox_x = -5000;
+      var viewbox_y = -9000;
+      var ratio = svg_width / svg_height; // 縦横比
+      viewbox_width *= ratio;
+      viewbox_x *= ratio;
+      var cx = viewbox_width / svg_width * x + viewbox_x;
+      var cy = viewbox_height / svg_height * y + viewbox_y;
+      return [cx, cy];
+    }
+
+    function moveShuttle(x, y) {
+      var p = convertPoint(x, y);
+      var shuttles = document.querySelectorAll('.shuttle');
+      shuttles[shuttles.length-1].setAttribute('cx', p[0]);
+      shuttles[shuttles.length-1].setAttribute('cy', p[1]);
+      showServeArea(p);
+    }
+
+    function putShuttle(x, y) {
+      var svg = document.querySelector('#badminton-tap-court');
+      var shuttle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+      var p = convertPoint(x, y);
+      shuttle.setAttribute('cx', p[0]);
+      shuttle.setAttribute('cy', p[1]);
+      shuttle.setAttribute('r', 200);
+      shuttle.setAttribute('stroke', 'black');
+      shuttle.setAttribute('fill', 'red');
+      shuttle.setAttribute('class', 'shuttle');
+      svg.appendChild(shuttle);
+      showServeArea(p);
+    }
+
+    function showServeArea(p) {
+      var pos = localStorage.getItem('serve-position');
+      var strategy = localStorage.getItem('strategy');
+      var area = document.querySelector('#' + pos + '-' + strategy);
+      //console.log(area);
+      if(pos == 'left' && strategy == 'singles'){
+        if(p[0] > 0 && p[0] < 2590 && p[1] > -6700 && p[1] < -2000){
+          area.style.display = 'block';
+          localStorage.setItem('label' , 'in');
+        }else{
+          area.style.display = 'none';
+          localStorage.setItem('label' , 'out');
+        }
+      }else if(pos == 'right' && strategy == 'singles'){
+        if(p[0] < 0 && p[0] > -2590 && p[1] > -6700 && p[1] < -2000){
+          area.style.display = 'block';
+          localStorage.setItem('label' , 'in');
+        }else{
+          area.style.display = 'none';
+          localStorage.setItem('label' , 'out');
+        }
+      }else if(pos == 'left' && strategy == 'doubles'){
+        if(p[0] > 0 && p[0] < 3050 && p[1] > -5900 && p[1] < -2000){
+          area.style.display = 'block';
+          localStorage.setItem('label' , 'in');
+        }else{
+          area.style.display = 'none';
+          localStorage.setItem('label' , 'out');
+        }
+      }else{
+        if(p[0] < 0 && p[0] > -3050 && p[1] > -5900 && p[1] < -2000){
+          area.style.display = 'block';
+          localStorage.setItem('label' , 'in');
+        }else{
+          area.style.display = 'none';
+          localStorage.setItem('label' , 'out');
+        }
+      }
+    }
+
+    function hideServeArea() {
+      var areas = document.querySelectorAll('.serve-area');
+      areas.forEach(el => {
+        el.style.display = 'none';
+      });
+    }
+
+    function setJson(){
+      var key = localStorage.getItem('result_key');
+      var results;
+      try {
+        resultJson = localStorage.getItem('result_' + key);
+        if (resultJson == null) results = [];
+        else results = JSON.parse(resultJson);
+      } catch(e) {
+        results = [];
+      }
+
+      var x = localStorage.getItem('x');
+      var y = localStorage.getItem('y');
+      var p = convertPoint(x,y);
+      console.log(p[0]);
+      console.log(p[1]);
+      var conx = p[0];
+      var cony = p[1];
+      
+      var result = {
+          "label":localStorage.getItem('label'),
+          "coodinate":{
+            "x":conx,
+            "y":cony
+          }
+      }
+      results.push(result);
+      localStorage.setItem('result_' + key,JSON.stringify(results));
+    }
+    
+
+    function gotoNextPage(){
+      document.querySelector('#myNavigator').popPage();
+    }
+
+
+    function initPage5(page){
+      var svg = document.querySelector('#badminton-tap-court');
+      var tapping = false;
+
+      svg.addEventListener( "touchstart", function( event ) {
+        var touchObject = event.changedTouches[0] ;
+        var rect = event.target.getBoundingClientRect();
+        var x = touchObject.clientX ;
+        var y = touchObject.clientY-rect.top ;
+        putShuttle(x, y);
+        tapping = true;
+      } ) ;
+
+      svg.addEventListener( "touchmove", function( event ) {
+        if (!tapping) return;
+        var rect = event.target.getBoundingClientRect();
+        var touchObject = event.changedTouches[0] ;
+        var x = touchObject.clientX;  //X座標
+        var y = touchObject.clientY-rect.top;  //Y座標
+        moveShuttle(x, y);
+      } ) ;
+
+      svg.addEventListener( "touchend", function( event ) {
+        tapping = false;
+        hideServeArea();
+        gotoNextPage();
+      });
+
+
+      svg.addEventListener( "mousedown", function( event ) {
+        var x = event.offsetX;  //X座標
+        var y = event.offsetY;
+        putShuttle(x, y);
+        tapping = true;
+      } ) ;
+
+      svg.addEventListener( "mousemove", function( event ) {
+        if (!tapping) return;
+        var x = event.offsetX;  //X座標
+        var y = event.offsetY;  //Y座標
+        moveShuttle(x, y);
+      } ) ;
+
+      svg.addEventListener( "mouseup", function( event ) {
+        var x = event.offsetX;  //X座標
+        var y = event.offsetY;  //Y座標
+        localStorage.setItem("x",x);
+        localStorage.setItem("y",y);
+        tapping = false;
+        hideServeArea();
+        setJson();
+        gotoNextPage();
+      });
+
+      page.querySelector('#net').onclick = function() {
+        localStorage.setItem('label' , 'net');
+        localStorage.setItem("x",null);
+        localStorage.setItem("y",null);
+        setJson();
+        document.querySelector('#myNavigator').popPage();
+      };
+      page.querySelector('#swing').onclick = function() {
+        localStorage.setItem('label' , 'swing');
+        localStorage.setItem("x",null);
+        localStorage.setItem("y",null);
+        setJson();
+        document.querySelector('#myNavigator').popPage();
+      };
+    }
+
+      //   document.querySelector('#net').onclick = function() {
+      //   //localStorage.setItem('result' , 'net');
+      //   console.log('net');
+      //   document.querySelector('#myNavigator').pushPage('page4.html');
+      // };
+
+  </script>
+</ons-page>

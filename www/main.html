@@ -1,0 +1,147 @@
+<ons-page id="main">
+  <ons-navigator id="myNavigator" page="page1.html"></ons-navigator>
+  <template id="page1.html">
+    <ons-page id="page1">
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          バドミントン サーブ練習記録
+        </div>
+      </ons-toolbar>
+      <ons-row style="height: 100%">
+        <ons-col width="30%" style="padding-bottom: 20px">
+          <ons-card style="max-height: 100%; padding: 0;">
+            <div style="max-height: 100%; display: grid; grid-template-rows: 2.5em minmax(100px, 1fr);">
+              <div style="padding: 0.7em; text-align: center;">
+                test<small>さん</small>
+              </div>
+              <div style="height: 100%; margin-bottom: 1em;">
+                <!-- <ons-list style="overflow: hidden; margin-bottom: 2px; border-bottom-left-radius: 9px; border-bottom-right-radius: 9px; border-bottom: none;">
+                  <ons-list-header><ons-icon icon="fa-award"></ons-icon> 記録</ons-list-header>
+                  <ons-list-item>
+                    <div class="center">
+                      <ons-icon icon="fa-crown"></ons-icon>
+                      <div>testtest</div>
+                    </div>
+                  </ons-list-item>
+                  <ons-list-item>Angular</ons-list-item>
+                  <ons-list-item>React</ons-list-item>
+                  <ons-list-item>React</ons-list-item>
+                  <ons-list-item>React</ons-list-item>
+                  <ons-list-item>React</ons-list-item>
+                </ons-list> -->
+              </div>
+            </div>
+          </ons-card>
+        </ons-col>
+        <ons-col>
+          <ons-list id="TopListView" style="height: 100%; overflow: scroll;">
+            <ons-list-header>練習履歴</ons-list-header>
+          </ons-list>
+        </ons-col>
+      </ons-row>
+      <ons-fab position="bottom right" id="push-button">
+        <ons-icon icon="md-plus">
+      </ons-fab>
+    </ons-page>
+  </template>
+
+  <template id="page4.html">
+    <ons-page id="page4" style="height: 100%">
+      <div>カウントダウン</div>
+    </ons-page>
+  </template>
+
+  <script>
+
+    function getList(){
+      var list = localStorage.getItem("result_keys");
+
+      if (list == null) {
+        return new Array();
+      } else {
+        return JSON.parse(list);
+      }
+    }
+
+  if (!window.main_init) {
+  window.main_init = function(event) {
+    var page = event.target;
+    var m = moment();
+    var key = m.format("YYYYMMDDHHmmss");
+
+    if (page.id === 'page1') {
+      var list = getList();
+      for (var i = 0; i < list.length; i++) {
+        var practice = list[i];
+        var beforeTextArr = practice.split("");
+        var afterText = '';
+        for (var j = 0; j < beforeTextArr.length; j++) {
+            afterText += beforeTextArr[j];
+            if(i == 3)  afterText += '/';
+            if(i == 5)  afterText += '/';
+            if(i == 7)  afterText += ' ';
+            if(i == 9)  afterText += ':';
+            if(i == 11)  afterText += ':';
+        }
+        var summary_json = localStorage.getItem('summary_'+practice);
+        var summary = JSON.parse(summary_json);
+        
+        $li = $('<ons-list-item modifier="chevron" tappable><span class="list-item__title"></span><span class="list-item__subtitle">test</span></ons-list-item>');
+        $li.find("span.list-item__title").text(afterText);
+        var result = 'イン: '+summary.results.in+'回, アウト: '+summary.results.out+'回, ネット: '+summary.results.net+'回, 空振り: '+summary.results.swing;
+        $li.find("span.list-item__subtitle").text(result);
+        $("#TopListView").append($li);
+         $li.on('click', function(e) {
+           console.log('p:', practice);
+           myNavigator.pushPage('review-page1.html', { data: { practice: practice} });
+        });
+      }
+      if (list.length == 0) {
+        $li = $('<ons-list-item>練習履歴はありません</ons-list-item>');
+        $("#TopListView").append($li);
+      }
+
+      page.querySelector('#push-button').onclick = function() {
+        var results;
+        try {
+          resultJson = localStorage.getItem('result_keys');
+          if (resultJson == null) results = [];
+          else results = JSON.parse(resultJson);
+        } catch(e) {
+          results = [];
+        }
+        results.push(key);
+        localStorage.setItem('result_keys',JSON.stringify(results));
+        localStorage.setItem("result_key", key);
+        document.querySelector('#myNavigator').pushPage('main-page2.html');//, {data: {title: 'Page 2'}});
+      };
+    }
+    else if (page.id === 'page2') {
+      initPage2(page);
+    }
+    else if (page.id === 'page3') {
+      initPage3(page);
+    }
+    else if (page.id === 'page4') {
+
+    }
+    else if (page.id === 'page5'){
+      initPage5(page);
+    }
+    else if (page.id === 'page6'){
+      initPage6(page);
+    }
+    // else if(page.id === 'review1'){
+    //   initPage7(page);
+    // }
+  };
+  document.addEventListener('init', window.main_init);
+}
+  </script>
+
+</ons-page>

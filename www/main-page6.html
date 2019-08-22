@@ -1,0 +1,191 @@
+<ons-page id="page6" style="height: 100%">
+  <ons-toolbar>
+    <div class="right">
+      <ons-toolbar-button id="finish">
+        <ons-icon icon="fa-square"></ons-icon> 記録終了
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  <ons-alert-dialog id="dialog-confirm-finish" cancelable>
+    <div class="alert-dialog-title">記録を終了します</div>
+    <div class="alert-dialog-content">
+      終了してもよろしいですか？
+    </div>
+    <div class="alert-dialog-footer">
+      <ons-alert-dialog-button onclick="document.querySelector('#dialog-confirm-finish').hide()">いいえ</ons-alert-dialog-button>
+      <ons-alert-dialog-button onclick="document.querySelector('#myNavigator').resetToPage('page1.html')">はい</ons-alert-dialog-button>
+    </div>
+  </ons-alert-dialog>
+  <ons-row style="height: 100%">
+    <ons-col style="height: 100%; padding: 20px;">
+        <!-- <svg class="badminton court" id="badminton-court" viewBox="-5000 -9000 10000 18000" width="100%" height="99%">
+        <defs>
+          <font-face font-family="fafont">
+            <font-face-src>
+              <font-face-uri xlink:href="lib/onsenui/css/font_awesome/fonts/fa-solid-900.svg" />
+            </font-face-src>
+          </font-face>
+        </defs>
+        <rect class="serve-area" id="right-singles" x="-2590" y="-6700" width="2590" height="4700" style="display: none" />
+        <rect class="serve-area" id="right-doubles" x="-3050" y="-5900" width="3050" height="3900" />
+        <rect class="serve-area" id="left-singles" x="0" y="-6700" width="2590" height="4700" />
+        <rect class="serve-area" id="left-doubles" x="0" y="-5900" width="3050" height="3900" />
+        <rect class="line" id="badminton-sideline-doubles-left" x="-3050" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-sideline-doubles-right" x="3010" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-backboundaryline-top" x="-3050" y="-6700" width="6100" height="40" />
+        <rect class="line" id="badminton-backboundaryline-bottom" x="-3050" y="6660" width="6100" height="40" />
+        <rect class="line" id="badminton-longserviceline-doubles-top" x="-3050" y="-5940" width="6100" height="40" />
+        <rect class="line" id="badminton-longserviceline-doubles-bottom" x="-3050" y="5900" width="6100" height="40" />
+        <rect class="line" id="badminton-sideline-singles-left" x="-2590" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-sideline-singles-right" x="2550" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-centerline-top" x="-20" y="-6700" width="40" height="4680" />
+        <rect class="line" id="badminton-centerline-top" x="-20" y="1980" width="40" height="4680" />
+        <rect class="line" id="badminton-shortserviceline-top" x="-3050" y="-2020" width="6100" height="40" />
+        <rect class="line" id="badminton-shortserviceline-top" x="-3050" y="1980" width="6100" height="40" />
+        <line class="net" id="badminton-net" x1="-3200" y1="0" x2="3200" y2="0" />
+        <circle class="post" id="badminton-post-left" cx="-3200" cy="0" r="80" />
+        <circle class="post" id="badminton-post-right" cx="3200" cy="0" r="80" />
+        <g class="server" id="right-server" style="display: none"> -->
+          <!-- <text font-size="1000" x="1000" y="3300">🏸</text> -->
+          <!-- <text font-size="1000" font-family="fafont" x="1300" y="3300" text-anchor="middle" dominant-baseline="central">&#xF007;</text>
+        </g>
+        <g class="server" id="left-server" style="display: none"> -->
+          <!-- <text font-size="1000" x="-1800" y="3300">🏸</text> -->
+          <!-- <text font-size="1000" font-family="fafont" x="-1300" y="3300" text-anchor="middle" dominant-baseline="central">&#xF007;</text>
+        </g> -->
+        <!-- <g id="camera" style="display: none"> -->
+        <!-- <text id="camera" font-family="fafont" x="0" y="0" font-size="700" text-anchor="middle" dominant-baseline="central">&#xF03D;</text> -->
+        <!-- </g> -->
+      <!-- </svg> -->
+    </ons-col>
+    <ons-col style="height: 100%; padding: 0px;">
+      <div>
+        <span id="count">0</span>球目は　<span id="shot"></span>　です。
+      </div>
+      <b>
+        カウントダウン
+      </b>
+      <div class="center">
+        <ons-input type="number" name="num" min="3" max="20"></ons-input> 秒
+      </div>
+      <div class="right">
+        <ons-button modifier="quiet"><ons-icon icon="fa-minus"></ons-icon></ons-button>
+        <ons-button modifier="quiet"><ons-icon icon="fa-plus"></ons-icon></ons-button>
+      </div>
+      <ons-button modifier="large" id="next-serve"><span id="nextCount">1</span>球目へ</ons-button>
+    </ons-col>
+  </ons-row>
+
+  <script>
+
+    // function drawServer() {
+    //   var pos = localStorage.getItem('serve-position');
+    //   var strategy = localStorage.getItem('strategy');
+    //   var court = document.querySelector('svg#badminton-court');
+    //   court.querySelectorAll('.serve-area').forEach(el => { el.style.display = 'none'; });
+    //   court.querySelectorAll('.server').forEach(el => { el.style.display = 'none'; });
+    //   court.querySelector('#' + pos + '-server').style.display = 'block';
+    //   court.querySelector('#' + pos + '-' + strategy).style.display = 'block';
+    // }
+
+    // function drawCamera() {
+    //   var camera_pos = localStorage.getItem('camera-position');
+    //   var cam = document.querySelector('svg#badminton-court #camera');
+    //   if (camera_pos == 'none') {
+    //     cam.style.display = 'none';
+    //     return;
+    //   }
+    // }
+
+    var key = localStorage.getItem('result_key');
+
+    function redrawCount(){
+      var lbl_count = document.querySelector('#count');
+      var lbl_next = document.querySelector('#nextCount');
+      var results;
+      var resultJson = localStorage.getItem('result_' + key);
+      if (resultJson == null) results = [];
+      else results = JSON.parse(resultJson);
+      var count = results.length;
+      var next = count+1;
+
+      // lbl_count.textContent = count;
+      // lbl_next.textContent = next;
+
+      lbl_count.innerHTML = count;
+      lbl_next.innerHTML = next;
+
+    }
+
+    function redrawResult() {
+      var lbl_shot = document.querySelector('#shot');
+      var rslt = localStorage.getItem('label');
+
+      if(rslt == 'net'){
+        lbl_shot.textContent = 'ネット';
+      }else if(rslt == 'swing'){
+        lbl_shot.textContent = '空振り';
+      }else if(rslt == 'in'){
+        lbl_shot.textContent = 'イン';
+      }else{
+        lbl_shot.textContent = 'アウト';
+      }
+    }
+
+    function setSummary(){
+      var resultJson = localStorage.getItem('result_' + key);
+      var result = JSON.parse(resultJson);
+
+      var count_in = 0;
+      var count_out = 0;
+      var count_net = 0;
+      var count_swing = 0;
+
+      console.log(Object.keys(result).length);
+      for( var i=0; i<Object.keys(result).length; i++){
+        if(result[i].label == "in")  count_in = count_in+1;
+        else if(result[i].label == "out")  count_out = count_out+1;
+        else if(result[i].label == "net")  count_net = count_net+1;
+        else  count_swing = count_swing+1;
+      }
+      // console.log(count_in);
+      // console.log(count_out);
+      // console.log(count_net);
+      // console.log(count_swing);
+
+      var summaryJson = localStorage.getItem('summary_' + key);
+      var summary = JSON.parse(summaryJson);
+
+      var config = {
+        "results":{
+          "in":count_in,
+          "out":count_out,
+          "net":count_net,
+          "swing":count_swing
+        }
+      }
+      localStorage.setItem("summary_" + key,JSON.stringify(config));
+    }
+
+    function initPage6(page){
+      // drawCamera();
+      // drawServer();
+      // redrawCount();
+      page.querySelector('#next-serve').onclick = function() {
+        document.querySelector('#myNavigator').pushPage('main-page5.html');
+      };
+
+      page.querySelector('#finish').onclick = function() {
+        setSummary();
+        page.querySelector('#dialog-confirm-finish').show();
+      }
+
+      document.querySelector('#myNavigator').addEventListener('prepop', function(event) {
+        redrawCount();
+        redrawResult();
+      });
+    }
+
+    
+  </script>
+</ons-page>

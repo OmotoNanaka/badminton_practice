@@ -1,0 +1,99 @@
+<ons-page id="page3" style="height: 100%">
+  <ons-toolbar>
+    <div class="left">
+      <ons-back-button id="backbutton">戻る</ons-back-button>
+    </div>
+      <div class="right">
+        <ons-toolbar-button id="start">
+          <ons-icon icon="fa-circle"></ons-icon> 記録開始
+        </ons-toolbar-button>
+      </div>
+  </ons-toolbar>
+  <div>
+
+    <img id="camera-thmb"></img>
+    <!-- <button onclick="openCamera('camera-thmb');">camera</button> -->
+
+    <button onclick="captureVideo();">ビデオキャプチャー</button> <br>
+
+  </div>
+
+  <div id = "preview"></div>
+
+  <script>
+
+    function captureSuccess(mediaFiles) {
+        var i, len;
+        for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+            uploadFile(mediaFiles[i]);
+        }
+    }
+
+    // エラー発生時の処理
+    
+    function captureError(error) {
+        var msg = 'キャプチャー中にエラーが発生しました: ' + error.code;
+        navigator.notification.alert(msg, null, 'エラー');
+    }
+
+    // ボタンがクリックされた場合の処理
+    
+    function captureVideo() {
+      // navigator.camera.showPreview("preview");
+
+        // デバイスのビデオ録画アプリを起動し、
+        // ユーザーに2つまでビデオの録画を許可する
+        // navigator.device.capture.captureVideo();
+        // navigator.capture.startVideoCapture(success, fail, {duration: 5000, destinationFilename: "videos/a.3gp"});
+        navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
+    }
+
+    function setOptions(srcType) {
+      var options = {
+          // Some common settings are 20, 50, and 100
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI,
+          // In this app, dynamically set the picture source, Camera or photo gallery
+          sourceType: srcType,
+          encodingType: Camera.EncodingType.JPEG,
+          mediaType: Camera.MediaType.VIDEO,
+          allowEdit: true,
+          correctOrientation: true  //Corrects Android orientation quirks
+      }
+      return options;
+    }
+
+    function displayImage(imgUri) {
+        var elem = document.getElementById('camera-thmb');
+        elem.src = imgUri;
+    }
+
+    function openCamera(selection) {
+
+      var srcType = Camera.PictureSourceType.CAMERA;
+      var options = setOptions(srcType);
+
+      if (selection == "camera-thmb") {
+          options.targetHeight = 100;
+          options.targetWidth = 100;
+      }
+
+      navigator.camera.getPicture(function cameraSuccess(imageUri) {
+        // navigator.device.capture.captureVideo(function cameraSuccess(imageUri){
+
+        displayImage(imageUri);
+      }, function cameraError(error) {
+          console.debug("Unable to obtain picture: " + error, "app");
+
+      }, options);
+    }
+
+    function initPage3(page) {
+      
+      page.querySelector('#start').onclick = function() {
+        document.querySelector('#myNavigator').pushPage('main-page6.html');
+      }
+    }
+  </script>
+</ons-page>
+

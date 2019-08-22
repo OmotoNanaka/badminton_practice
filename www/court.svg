@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5000 -9000 10000 18000">
+	<rect class="line" id="badminton-sideline-doubles-left" x="-3050" y="-6700" width="40" height="13400" fill="white" />
+	<rect class="line" id="badminton-sideline-doubles-right" x="3010" y="-6700" width="40" height="13400" fill="white"/>
+	<rect class="line" id="badminton-backboundaryline-top" x="-3050" y="-6700" width="6100" height="40" fill="white" />
+	<rect class="line" id="badminton-backboundaryline-bottom" x="-3050" y="6660" width="6100" height="40" fill="white" />
+	<rect class="line" id="badminton-longserviceline-doubles-top" x="-3050" y="-5940" width="6100" height="40" fill="white" />
+	<rect class="line" id="badminton-longserviceline-doubles-bottom" x="-3050" y="5900" width="6100" height="40" fill="white" />
+	<rect class="line" id="badminton-sideline-singles-left" x="-2590" y="-6700" width="40" height="13400" fill="white" />
+	<rect class="line" id="badminton-sideline-singles-right" x="2550" y="-6700" width="40" height="13400" fill="white" />
+	<rect class="line" id="badminton-centerline-top" x="-20" y="-6700" width="40" height="4680" fill="white" />
+	<rect class="line" id="badminton-centerline-top" x="-20" y="1980" width="40" height="4680" fill="white" />
+	<rect class="line" id="badminton-shortserviceline-top" x="-3050" y="-2020" width="6100" height="40" fill="white" />
+	<rect class="line" id="badminton-shortserviceline-top" x="-3050" y="1980" width="6100" height="40" fill="white" />
+	<line class="net" id="badminton-net" x1="-3200" y1="0" x2="3200" y2="0" stroke="white" stroke-width="40" stroke-dasharray="150,50" />
+	<circle class="post" id="badminton-post-left" cx="-3200" cy="0" r="80" fill="white" />
+	<circle class="post" id="badminton-post-right" cx="3200" cy="0" r="80" fill="white" />
+</svg>

@@ -1,0 +1,29 @@
+.badminton.court {
+  background-color: #999;
+}
+
+.badminton.court > .line {
+  fill: white;
+}
+
+.badminton.court .net {
+  stroke: white;
+  stroke-width: 40;
+  stroke-dasharray: 150,50;
+}
+
+.badminton.court .post {
+  fill: white;
+}
+
+.badminton.court .server {
+  fill: yellow;
+}
+
+.badminton.court .serve-area {
+  fill: #ff09;
+}
+
+.badminton.court #camera {
+  fill: yellow;
+}

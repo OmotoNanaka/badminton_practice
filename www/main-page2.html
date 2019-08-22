@@ -1,0 +1,269 @@
+<ons-page id="page2" style="height: 100%">
+  <ons-toolbar>
+    <div class="left">
+      <ons-back-button id="backbutton">戻る</ons-back-button>
+    </div>
+    <div class="right">
+      <ons-toolbar-button icon="fa-chevron-right">
+        <span>次へ</span>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <ons-row style="height: 100%">
+    <ons-col style="height: 100%; padding: 0px;">
+      <svg class="badminton court" id="badminton-court" viewBox="-5000 -9000 10000 18000" width="100%" height="99%">
+        <defs>
+          <font-face font-family="fafont">
+            <font-face-src>
+              <font-face-uri xlink:href="lib/onsenui/css/font_awesome/fonts/fa-solid-900.svg" />
+            </font-face-src>
+          </font-face>
+        </defs>
+        <rect class="serve-area" id="right-singles" x="-2590" y="-6700" width="2590" height="4700" style="display: none" />
+        <rect class="serve-area" id="right-doubles" x="-3050" y="-5900" width="3050" height="3900" />
+        <rect class="serve-area" id="left-singles" x="0" y="-6700" width="2590" height="4700" />
+        <rect class="serve-area" id="left-doubles" x="0" y="-5900" width="3050" height="3900" />
+        <rect class="line" id="badminton-sideline-doubles-left" x="-3050" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-sideline-doubles-right" x="3010" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-backboundaryline-top" x="-3050" y="-6700" width="6100" height="40" />
+        <rect class="line" id="badminton-backboundaryline-bottom" x="-3050" y="6660" width="6100" height="40" />
+        <rect class="line" id="badminton-longserviceline-doubles-top" x="-3050" y="-5940" width="6100" height="40" />
+        <rect class="line" id="badminton-longserviceline-doubles-bottom" x="-3050" y="5900" width="6100" height="40" />
+        <rect class="line" id="badminton-sideline-singles-left" x="-2590" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-sideline-singles-right" x="2550" y="-6700" width="40" height="13400" />
+        <rect class="line" id="badminton-centerline-top" x="-20" y="-6700" width="40" height="4680" />
+        <rect class="line" id="badminton-centerline-top" x="-20" y="1980" width="40" height="4680" />
+        <rect class="line" id="badminton-shortserviceline-top" x="-3050" y="-2020" width="6100" height="40" />
+        <rect class="line" id="badminton-shortserviceline-top" x="-3050" y="1980" width="6100" height="40" />
+        <line class="net" id="badminton-net" x1="-3200" y1="0" x2="3200" y2="0" />
+        <circle class="post" id="badminton-post-left" cx="-3200" cy="0" r="80" />
+        <circle class="post" id="badminton-post-right" cx="3200" cy="0" r="80" />
+        <g class="server" id="right-server" style="display: none">
+          <!-- <text font-size="1000" x="1000" y="3300">🏸</text> -->
+          <text font-size="1000" font-family="fafont" x="1300" y="3300" text-anchor="middle" dominant-baseline="central">&#xF007;</text>
+        </g>
+        <g class="server" id="left-server" style="display: none">
+          <!-- <text font-size="1000" x="-1800" y="3300">🏸</text> -->
+          <text font-size="1000" font-family="fafont" x="-1300" y="3300" text-anchor="middle" dominant-baseline="central">&#xF007;</text>
+        </g>
+        <!-- <g id="camera" style="display: none"> -->
+        <text id="camera" font-family="fafont" x="0" y="0" font-size="700" text-anchor="middle" dominant-baseline="central">&#xF03D;</text>
+        <!-- </g> -->
+      </svg>
+    </ons-col>
+    <ons-col style="height: 100%; overflow: scroll;">
+      <ons-list>
+        <ons-list-header>サーブを打つ位置</ons-list-header>
+        <ons-list-item>
+          <div class="center" style="margin-left: 2em">
+            <ons-segment id="serve-position" style="width: 100%; max-width: 200px">
+              <button><ons-icon icon="fa-caret-left"></ons-icon> 左</button>
+              <button>右 <ons-icon icon="fa-caret-right"></ons-icon></button>
+            </ons-segment>
+          </div>
+        </ons-list-item>
+        <ons-list-header>サービス・レシーブエリア</ons-list-header>
+        <ons-list-item>
+          <label class="left">
+            <ons-radio name="strategy" input-id="strategy-singles" value="singles"></ons-radio>
+          </label>
+          <label for="strategy-singles" class="center">
+            シングルスのエリア
+          </label>
+        </ons-list-item>
+        <ons-list-item>
+          <label class="left">
+            <ons-radio name="strategy" input-id="strategy-doubles" value="doubles"></ons-radio>
+          </label>
+          <label for="strategy-doubles" class="center">
+            ダブルスのエリア
+          </label>
+        </ons-list-item>
+        <ons-list-header>カメラの位置</ons-list-header>
+        <ons-list-item>
+          <label class="left">
+            <ons-radio name="camera-position" input-id="check-0" value="none"></ons-radio>
+          </label>
+          <label for="check-0" class="center">
+            なし
+          </label>
+          </ons-list-item>
+          <ons-list-item>
+          <label class="left">
+            <ons-radio name="camera-position" input-id="check-1" value="front"></ons-radio>
+          </label>
+          <label for="check-1" class="center">
+            正面
+          </label>
+        </ons-list-item>
+        <ons-list-item>
+          <label class="left">
+            <ons-radio name="camera-position" input-id="check-2" value="side"></ons-radio>
+          </label>
+          <label for="check-2" class="center">
+            横
+          </label>
+        </ons-list-item>
+        <ons-list-item>
+          <label class="left">
+            <ons-radio name="camera-position" input-id="check-3" value="back"></ons-radio>
+          </label>
+          <label for="check-3" class="center">
+            後ろ
+          </label>
+        </ons-list-item>
+        <!-- <ons-list-header>カウントダウン</ons-list-header>
+        <ons-list-item>
+          <div class="center">
+            <ons-input type="number" name="num" min="3" max="20"></ons-input> 秒
+          </div>
+          <div class="right">
+            <ons-button modifier="quiet"><ons-icon icon="fa-minus"></ons-icon></ons-button>
+            <ons-button modifier="quiet"><ons-icon icon="fa-plus"></ons-icon></ons-button>
+          </div>
+        </ons-list-item> -->
+      </ons-list>
+    </ons-col>
+  </ons-row>
+  <script>
+
+function drawServer() {
+  var pos = localStorage.getItem('serve-position');
+  var strategy = localStorage.getItem('strategy');
+  var court = document.querySelector('svg#badminton-court');
+  court.querySelectorAll('.serve-area').forEach(el => { el.style.display = 'none'; });
+  court.querySelectorAll('.server').forEach(el => { el.style.display = 'none'; });
+  court.querySelector('#' + pos + '-server').style.display = 'block';
+  court.querySelector('#' + pos + '-' + strategy).style.display = 'block';
+}
+
+function drawCamera() {
+  var camera_pos = localStorage.getItem('camera-position');
+  var cam = document.querySelector('svg#badminton-court #camera');
+  if (camera_pos == 'none') {
+    cam.style.display = 'none';
+    return;
+  }
+  cam.style.display = 'block';
+  var server_pos = localStorage.getItem('serve-position');
+  var bx = 1300;
+  var by = 1300;
+  var t = 'rotate(90';
+  if (camera_pos == 'back') {
+    by = 5300;
+    t = 'rotate(270';
+  }
+  if (server_pos == 'left') bx *= -1;
+  if (camera_pos == 'side') {
+    bx += 2000;
+    by = 3300;
+    t = 'rotate(180';
+  }
+  cam.setAttribute('x', bx);
+  cam.setAttribute('y', by);
+  cam.setAttribute('transform', t + ', ' + bx + ', ' + by + ')');
+}
+
+function redrawNextButton() {
+  var btn = document.querySelector('ons-toolbar .right ons-toolbar-button');
+  var lbl = btn.querySelector('span');
+  var cam = localStorage.getItem('camera-position');
+  var key = localStorage.getItem('result_key');
+  if (cam == 'none') {
+    btn.setAttribute('icon', 'fa-circle');
+    lbl.textContent = '記録開始';
+    btn.onclick = function() {
+      var config = {
+        "config":{
+          "serve-position":localStorage.getItem('serve-position'),
+          "strategy":localStorage.getItem('strategy'),
+          "camera-position":localStorage.getItem('camera-position')
+        }
+      }
+    localStorage.setItem("summary_" + key,JSON.stringify(config));
+
+
+      document.querySelector('#myNavigator').resetToPage('main-page6.html');
+    }
+  }
+  else {
+    btn.setAttribute('icon', 'fa-chevron-right');
+    lbl.textContent = '次へ';
+    btn.onclick = function() {
+      var config = {
+        "config":{
+          "serve-position":localStorage.getItem('serve-position'),
+          "strategy":localStorage.getItem('strategy'),
+          "camera-position":localStorage.getItem('camera-position')
+        }
+      }
+    localStorage.setItem("summary_" + key,JSON.stringify(config));
+      document.querySelector('#myNavigator').pushPage('main-page3.html');
+    }
+  }
+}
+
+function changeRadio(event) {
+  localStorage.setItem(event.target.name, event.target.value);
+  if (event.target.name == 'camera-position') {
+    redrawNextButton();
+    drawCamera();
+  }
+  else {
+    drawServer();
+  }
+}
+
+function changeSegment(event) {
+  var pos = 'right';
+  if (event.target.value == 0) pos = 'left';
+  localStorage.setItem('serve-position', pos);
+  drawServer();
+  drawCamera();
+}
+
+function initPage2(page) {
+  // var svgCourt = page.querySelector('#badminton-court');
+  // console.log('page2', svgCourt.width.baseVal.value, svgCourt.height.baseVal.value);
+  // var bBox = svgCourt.getBBox();
+  // console.log('XxY', bBox.x + 'x' + bBox.y);
+  // console.log('size', bBox.width + 'x' + bBox.height);
+  // var vb = [-5000, -9000, 10000, 18000];
+  // svgCourt.setAttribute('viewBox', vb);
+  var radios = page.querySelectorAll('ons-radio');
+  radios.forEach(el => {
+    el.addEventListener('change', changeRadio, false);
+  });
+  var cam = localStorage.getItem('camera-position');
+  if (cam == null) {
+    cam = 'none';
+    localStorage.setItem('camera-position', cam);
+  }
+  var q = "ons-radio[name='camera-position'][value='" + cam + "']";
+  var camradio = page.querySelector(q);
+  camradio.checked = true;
+  redrawNextButton();
+  var strategy = localStorage.getItem('strategy');
+  if (strategy == null) {
+    strategy = 'singles';
+    localStorage.setItem('strategy', strategy);
+  }
+  q = "ons-radio[name='strategy'][value='" + strategy + "']";
+  var strradio = page.querySelector(q);
+  strradio.checked = true;
+  var serve = localStorage.getItem('serve-position');
+  if (serve == null) {
+    serve = 'right';
+    localStorage.setItem('serve-position', serve);
+  }
+  drawServer();
+  drawCamera();
+  var idx = 0;
+  if (serve == 'right') idx = 1;
+  var seg = page.querySelector('#serve-position');
+  seg.setActiveButton(idx);
+  seg.addEventListener('change', changeSegment, false);
+}
+  </script>
+</ons-page>
